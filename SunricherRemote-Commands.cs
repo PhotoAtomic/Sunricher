@@ -44,8 +44,9 @@ namespace PhotoAtomic.Sunricher
         }
 
         public Task Dim(int zone, byte value)
-        {
-            var m = LightMessage.RgbBrightnessSeekbar;
+        {            
+            //var m = LightMessage.RgbBrightnessSeekbar;
+            var m = LightMessage.CircleDim;            
             m.Value = value;
             m.Zones.SetAll(false);
             m.Zones[zone-1] = true;
