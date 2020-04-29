@@ -13,28 +13,32 @@ namespace PhotoAtomic.Sunricher
         public int id { get; }
         const int DelayAfterMessage = 100;
 
-        private IPAddress serverIP;
-        private int serverPort;
+        private IPEndPoint endPoint;
 
         public IEnumerable<byte> remoteId = null;
 
 
-        public  SunricherRemote(IPAddress serverIP, int serverPort = 8899)
-        {            
-            this.serverIP = serverIP;
-            this.serverPort = serverPort;
+        public  SunricherRemote(IPEndPoint endPoint)
+        {
+            this.endPoint = endPoint;
         }
 
-        public SunricherRemote(int id, IPAddress serverIP, int serverPort = 8899): this(serverIP, serverPort)
+        public SunricherRemote(int id, IPEndPoint endPoint) : this(endPoint)
         {
             remoteId = BitConverter.GetBytes(id).Skip(1).Take(3);
-            
         }
 
-        public SunricherRemote(byte a, byte b, byte c, IPAddress serverIP, int serverPort = 8899) : this(serverIP, serverPort)
+        public SunricherRemote(int id, IPAddress serverIP, int serverPort = 8899): this(id, new IPEndPoint(serverIP, serverPort))
+        {            
+        }
+
+        public SunricherRemote(byte a, byte b, byte c, IPEndPoint endPoint) : this(endPoint)
         {
             remoteId = new[] { a, b, c };
+        }
 
+        public SunricherRemote(byte a, byte b, byte c, IPAddress serverIP, int serverPort = 8899) : this(a,b,c,new IPEndPoint(serverIP, serverPort))
+        {            
         }
 
         private IEnumerable<byte> RemoteId()
@@ -49,7 +53,8 @@ namespace PhotoAtomic.Sunricher
             using (var tcp = new TcpClient())
             {
                 var buffer = message.ToArray();
-                await tcp.ConnectAsync(serverIP, serverPort);
+                tcp.Connect(endPoint);
+                //await tcp.ConnectAsync(endPoint.Address,endPoint.Port);
 
                 if (tcp.Client.Connected)
                 {
