@@ -20,6 +20,7 @@ namespace PhotoAtomic.Sunricher
 
         public  SunricherRemote(IPEndPoint endPoint)
         {
+            if (endPoint == null) throw new ArgumentNullException(nameof(endPoint));
             this.endPoint = endPoint;
         }
 
