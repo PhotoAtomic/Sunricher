@@ -57,7 +57,7 @@ namespace PhotoAtomic.Sunricher
         {            
             if (zone is int i)
             {
-                if (i < 1 || i > 8) throw new ArgumentOutOfRangeException("ZOne can be from 1 to 8 only");
+                if (i < 1 || i > 8) throw new ArgumentOutOfRangeException("Zone can be from 1 to 8 only");
                 var m = commandByZone[i-1];
                 m.Zones.SetAll(false);
                 m.Zones[i-1] = true;
