@@ -48,6 +48,7 @@ namespace PhotoAtomic.Sunricher
 
         public async Task Send(SunricherMessage message)
         {
+            //message.SetRemoteId(remoteId.ElementAt(0), remoteId.ElementAt(1), remoteId.ElementAt(2));
             using (message.WithRemoteIdGenerator(RemoteId))
             {
                 using (var tcp = new TcpClient())

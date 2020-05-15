@@ -47,7 +47,7 @@ namespace PhotoAtomic.Sunricher
 
             var message =
                 Preamble().OfLength(1) +
-                RemoteId?.Invoke().OfLength(3) +
+                (remoteId??RemoteId?.Invoke()).OfLength(3) +
                 payload +
                 Checksum(payload).OfLength(1) +
                 Epilogue().OfLength(2);
@@ -71,7 +71,7 @@ namespace PhotoAtomic.Sunricher
 
         private IEnumerable<byte> IdMarker()
         {
-            yield return 0x02;
+            yield return 0x01;
         }
 
         private IEnumerable<byte> Preamble()
