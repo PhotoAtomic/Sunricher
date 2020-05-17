@@ -11,7 +11,7 @@ namespace PhotoAtomic.Sunricher
     public partial class SunricherRemote
     {
         public int id { get; }
-        const int DelayAfterMessage = 100;
+        const int DelayAfterMessage = 250;
 
         private string host;
         private int port;
@@ -54,7 +54,6 @@ namespace PhotoAtomic.Sunricher
                 using (var tcp = new TcpClient())
                 {
                     var buffer = message.ToArray();
-                    //tcp.Connect(host,port);
                     await tcp.ConnectAsync(host, port);
 
                     if (tcp.Client.Connected)

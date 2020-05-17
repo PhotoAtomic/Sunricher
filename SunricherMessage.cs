@@ -98,7 +98,7 @@ namespace PhotoAtomic.Sunricher
         {
             if (RemoteId != null) throw new Exception("Remote id generator already in use");
             RemoteId = remoteId;
-            return new Resetter(() => { this.remoteId = null; });
+            return new Resetter(() => { this.RemoteId = null; });
         }
 
         public Func<IEnumerable<byte>> RemoteId { get; private set; }
